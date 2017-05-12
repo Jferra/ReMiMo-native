@@ -3,22 +3,24 @@ package com.troala.remimo;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Movie;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ * Created by Joëlle on 5/11/2017.
+ */
 
-public class MainActivity extends AppCompatActivity {
+public class BitmapDecode extends MainActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
         setContentView(new SampleView(this));
     }
 
-
     private static class SampleView extends View {
+        //private Bitmap mBitmap;
+
         private Movie mMovie;
         private long mMovieStart;
 
@@ -29,12 +31,18 @@ public class MainActivity extends AppCompatActivity {
             java.io.InputStream is;
             is = context.getResources().openRawResource(R.drawable.tttbproductive);
 
+            //BitmapFactory.Options opts = new BitmapFactory.Options();
+            //Bitmap bm;
+            //bm = BitmapFactory.decodeStream(is);
+            //mBitmap = bm;
+
             mMovie = Movie.decodeStream(is);
 
         }
 
         @Override
         protected void onDraw(Canvas canvas){
+            //canvas.drawColor(0xFFCCCCCC);
 
             long now = android.os.SystemClock.uptimeMillis(); // We get here the system's time.
 
@@ -45,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             if (mMovie != null){
                 int duration = mMovie.duration();
                 if(duration == 0){
-                    duration = 2000; //We set how long we want the animation to run
+                    duration = 1000; //We set how long we want the animation to run
                 }
                 int relTime = (int)((now - mMovieStart) % duration);
                 mMovie.setTime(relTime);
